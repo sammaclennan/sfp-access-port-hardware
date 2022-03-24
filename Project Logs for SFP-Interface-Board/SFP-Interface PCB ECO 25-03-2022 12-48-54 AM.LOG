@@ -1,0 +1,17 @@
+Added Component: Designator=R18(1608[0603])
+Add component (AddParameter): Name = "DTEMP"; Value = ""; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "SimulationGenericComponent"; Value = "True"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "T_REL_LOCAL"; Value = ""; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "TC"; Value = ""; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "TC1"; Value = "0"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "TC2"; Value = "0"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "TEMP"; Value = ""; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Value"; Value = "10K"; VariantName = "[No Variations]"
+Added Pin To Net: NetName=+3.3V Pin=R18-1
+Added Pin To Net: NetName=NetJ1_6 Pin=J1-6
+Added Pin To Net: NetName=NetJ1_6 Pin=R18-2
+Added Pin To Net: NetName=NetJ1_6 Pin=U1-4
+Added Net: Name=NetJ1_6
+Added Member To Class: ClassName=SFP-Interface Member=Component R18 Resistor
+Added Member To Class: ClassName=SFP-Interface Member=Component Y1 ECS-120-12-33Q-JES-TR
+Added Room: Name=SFP-Interface
