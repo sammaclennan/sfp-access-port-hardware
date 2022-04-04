@@ -1,0 +1,9 @@
+Removed Pin From Net: NetName=NetJ1_4 Pin=U1-2
+Removed Pin From Net: NetName=NetJ1_5 Pin=U1-3
+Removed Pin From Net: NetName=NetJ1_6 Pin=U1-4
+Change Component Designator: OldDesignator= NewDesignator=R18
+Added Pin To Net: NetName=NetJ1_6 Pin=U1-39
+Added Pin To Net: NetName=NetJ1_4 Pin=U1-40
+Added Pin To Net: NetName=NetJ1_5 Pin=U1-41
+Added Member To Class: ClassName=SFP-Interface Member=Component R18 Resistor
+Added Room: Name=SFP-Interface
