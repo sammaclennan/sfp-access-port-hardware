@@ -1,0 +1,19 @@
+----------------------------------------------------------------------------------------------------------------------------------
+NCDrill File Report For: SFP-Interface.PcbDoc   5/04/2022  3:46:42 PM
+----------------------------------------------------------------------------------------------------------------------------------
+
+Layer Pair : Top Layer to Bottom Layer
+ASCII RoundHoles File : SFP-Interface.TXT
+
+Tool       Hole Size               Hole Tolerance               Hole Type       Hole Count   Plated         Tool Travel
+----------------------------------------------------------------------------------------------------------------------------------
+T1      15mil (0.381mm)                                           Round             45        PTH        9.29inch (235.88mm)
+T2      34mil (0.851mm)                                           Round             1         PTH        0.00inch (0.00mm)
+T3      37mil (0.95mm)                                            Round             9         PTH        1.55inch (39.31mm)
+T4      41mil (1.049mm)                                           Round             10        PTH        3.19inch (80.94mm)
+T5      26mil (0.65mm)                                            Round             2         NPTH       0.23inch (5.78mm)
+T6      61mil (1.549mm)                                           Round             2         NPTH       0.38inch (9.60mm)
+----------------------------------------------------------------------------------------------------------------------------------
+Totals                                                                              69
+
+Total Processing Time (hh:mm:ss) : 00:00:00
