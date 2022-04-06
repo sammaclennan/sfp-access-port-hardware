@@ -1,0 +1,813 @@
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html">
+<style type="text/css">
+		h1, h2, h3, h4, h5, h6 {
+			font-family : segoe ui;
+			color : black;
+			background-color : #EDE7D9;
+			padding: 0.3em;
+		}
+
+		h1 {
+			font-size: 1.2em;
+		}		
+
+		h2 {
+			font-size: 1.2em;
+		}
+
+		body {
+			font-family : segoe ui;
+		}
+
+		td, th {
+			padding: 0.5em;
+			text-align : left;
+			width: 10em;
+		}
+		th {
+			background-color : #EEEEEE;
+
+		}
+		th.column1, td.column1 {
+			text-align: left;
+			width : auto;
+		}
+		table {
+			width : 100%;
+			font-size: 0.9em;
+		}
+
+		.DRC_summary_header {
+			padding-bottom : 0.1em;
+			border : 0px solid black;
+			width: 100%;
+			align: left;
+		}
+
+		.DRC_summary_header_col1,
+		.DRC_summary_header_col2, 
+		.DRC_summary_header_col3 {
+			color : black;
+			font-size:100%;
+			padding : 0em;
+			padding-top : 0.2em;
+			padding-bottom 0.2em;
+			border : 0px solid black;
+			vertical-align: top;
+			text-align: left;
+		}
+
+		.DRC_summary_header_col1 {
+			font-weight: bold;
+			width: 8em;
+		}
+
+		.DRC_summary_header_col2 {
+			width: 0.1em;
+		
+		}
+
+		.DRC_summary_header_col3 {
+			width : auto;
+		}
+
+		.header_holder {
+		    Width = 100%;
+		    border = 0px solid green;
+		    padding = 0;
+		}
+
+
+		.front_matter, .front_matter_column1, .front_matter_column2, .front_matter_column3
+		{
+			left : 0;
+			top : 0;
+			padding: 0em;
+			padding-top : 0.1em;
+			border : 0px solid black;
+			width : 100%;
+			vertical-align: top;
+			text-align: left;
+		}
+
+		.front_matter_column1 {
+			width : 8em;
+			font-weight: bold;
+		}
+
+		.front_matter_column2 {
+			width: 0.1em;
+		}
+
+		.front_matter_column3 {
+			width : auto;
+		}
+
+		.total_column1, .total_column {
+			font-weight : bold;
+		}
+		.total_column1 {
+			text-align : left;
+		}
+		.warning, .error {
+			color : red;
+			font-weight : bold;
+		}
+		tr.onmouseout_odd {
+			background-color : #white;
+		}
+		tr.onmouseout_even { 
+			background-color : #FAFAFA;
+		}
+		tr.onmouseover_odd, tr.onmouseover_even { 
+			background-color : #EEEEEE;
+		} 
+		a:link, a:visited, .q a:link,.q a:active,.q {
+			color: #21489e; 
+		}
+		a:link.callback, a:visited.callback { 
+			color: #21489e;
+		}
+		a:link.customize, a:visited.customize {
+			color: #C0C0C0;
+			position: absolute; 
+			right: 10px;
+		}	
+		p.contents_level1 {
+			font-weight : bold;
+			font-size : 110%;
+			margin : 0.5em;
+		}
+		p.contents_level2 {
+			position : relative;
+			left : 20px;
+			margin : 0.5em;
+		}
+	</style><script type="text/javascript">
+		function coordToMils(coord) {
+			var number = coord / 10000;
+			
+			if (number != number.toFixed(3))
+				number = number.toFixed(3);
+
+			return number + 'mil'
+		}
+
+		function coordToMM(coord) {
+			var number = 0.0254 * coord / 10000;
+			
+			if (number != number.toFixed(4))
+				number = number.toFixed(4);
+			
+			return number + 'mm'
+		}
+	
+		function convertCoord(coordNode, units) {
+			for (var i = 0; i < coordNode.childNodes.length; i++) {
+				coordNode.removeChild(coordNode.childNodes[i]);
+			}
+
+			var coord = coordNode.getAttribute('value');
+			if (coord != null) {
+				if (units == 'mm') {
+					textNode = document.createTextNode(coordToMM(coord));
+					coordNode.appendChild(textNode);
+				} else if (units == 'mil') {
+					textNode = document.createTextNode(coordToMils(coord));		
+					coordNode.appendChild(textNode);	
+				}
+			}
+		}
+	
+		function convertUnits(unitNode, units) {
+			for (var i = 0; i < unitNode.childNodes.length; i++) {
+				unitNode.removeChild(unitNode.childNodes[i]);		
+			}
+		
+			textNode = document.createTextNode(units); 
+			unitNode.appendChild(textNode);
+		}
+	
+		function changeUnits(radio_input, units) {
+			if (radio_input.checked) {
+			
+				var elements = document.getElementsByName('coordinate');
+				if (elements) {
+					for (var i = 0; i < elements.length; i++) {
+						convertCoord(elements[i], units);
+					}
+				}
+	
+				var elements = document.getElementsByName('units');
+				if (elements) {
+					for (var i = 0; i < elements.length; i++) {
+						convertUnits(elements[i], units);
+					}
+				}
+			}
+		}
+	</script><title>Design Rule Verification Report</title>
+</head>
+<body onload=""><img ALT="Altium" src="
+			file://C:\Users\Public\Documents\Altium\AD21\Templates\AD_logo.png
+		"><h1>Design Rule Verification Report</h1>
+<table class="header_holder">
+<td class="column1">
+<table class="front_matter">
+<tr class="front_matter">
+<td class="front_matter_column1">Date:</td>
+<td class="front_matter_column2"></td>
+<td class="front_matter_column3">17/03/2022</td>
+</tr>
+<tr class="front_matter">
+<td class="front_matter_column1">Time:</td>
+<td class="front_matter_column2"></td>
+<td class="front_matter_column3">11:29:55 PM</td>
+</tr>
+<tr class="front_matter">
+<td class="front_matter_column1">Elapsed Time:</td>
+<td class="front_matter_column2"></td>
+<td class="front_matter_column3">00:00:01</td>
+</tr>
+<tr class="front_matter">
+<td class="front_matter_column1">Filename:</td>
+<td class="front_matter_column2"></td>
+<td class="front_matter_column3"><a href="file:///C:\Users\Sam\Documents\EDA\SFP Interface\SFP-Interface\SFP-Interface.PcbDoc" class="file"><acronym title="C:\Users\Sam\Documents\EDA\SFP Interface\SFP-Interface\SFP-Interface.PcbDoc">C:\Users\Sam\Documents\EDA\SFP Interface\SFP-Interface\SFP-Interface.PcbDoc</acronym></a></td>
+</tr>
+</table>
+</td>
+<td class="column2">
+<table class="DRC_summary_header">
+<tr>
+<td class="DRC_summary_header_col1">Warnings:</td>
+<td class="DRC_summary_header_col2"></td>
+<td class="DRC_summary_header_col3">0</td></tr>
+<tr>
+<td class="DRC_summary_header_col1">Rule Violations:</td>
+<td class="DRC_summary_header_col2"></td>
+<td class="DRC_summary_header_col3" style="color : red">147</td></tr>
+</table>
+</td>
+</table><a name="IDV2QRYNGS1ICJFNSVJX45RSVIEGIPS3SJHSHIMQDOQ5KMOWGVFRZD"><h2>Summary</h2></a><table>
+<tr>
+<th class="column1">Warnings</th>
+<th class="column2">Count</th>
+</tr>
+<tr>
+<td style="font-weight : bold; text-align : right" class="column1">Total</td>
+<td style="font-weight : bold" class="column2">0</td>
+</tr>
+</table><br><table>
+<tr>
+<th class="column1">Rule Violations</th>
+<th class="column2">Count</th>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#IDRHB1TVJ24ZBPLMOWN5P3EJISKGVVED1AYGNVXPCJIDDOTWP23RXG">Clearance Constraint (Gap=0.203mm) (OnLayer('Bottom Layer')),(All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#ID40MPXHTSUIXOBWELGG4QXKVX2LPJIQ2UON0AG3DULE12UIF5D2X">Clearance Constraint (Gap=0.203mm) (OnLayer('Top Layer')),(All)</a></td>
+<td class="column2">2</td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#IDFMZCXBMA2K1DL5LFD2PFZQA4JIOZDG0ACT2TBCO2WURWEX4A0ZGH">Clearance Constraint (Gap=0.2mm) (All),(All)</a></td>
+<td class="column2">20</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#IDU0FMITPFTTULNOPPQPFKBEYKXCB0NKOQGE2D2YCONCOWLHTOZMWM">Short-Circuit Constraint (Allowed=No) (All),(All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#IDDOBP5DKLPK0ULGIAO3ZHD0B54BCFLNQWVCU2R4DUNWGPAQKXCX4H">Un-Routed Net Constraint ( (All) )</a></td>
+<td class="column2">85</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#ID3Q3NU1LMWSB4LJDZRZ2Y23I1WDZ2V1QMOBRIXAMS2EJ2KHITFZUO">Modified Polygon (Allow modified: No), (Allow shelved: No)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#IDGMR2TXFGOJPQFKSEI2UMQQIJBHYDB2G2MSD5TFBPRYHNJPTD5CUM">Width Constraint (Min=0.089mm) (Max=2.54mm) (Preferred=0.381mm) (All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#IDFE0RFYXW2SROM4SIQU341SQ0IJ4SDTSXS2C45ALYVESX4FERMX1G">Power Plane Connect Rule(Relief Connect )(Expansion=0.508mm) (Conductor Width=0.254mm) (Air Gap=0.254mm) (Entries=4) (All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#IDD2OD4W1ICAPRPX1GFBRXHIIJQPMEKXBHHVGRANMXIDFBAICBDJVO">Minimum Annular Ring (Minimum=0.076mm) (All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#ID53DQO2Z0LYNABKEHDX1P00BUTMVDTEVXDXFA3VH4QWRK0HYRZRGN">Hole Size Constraint (Min=0.2mm) (Max=6.3mm) (All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#IDQPPUP0AU1CMXES3IJS5O42YUHFKUKYTFJBTL2AEQY4ZFRRXLEQZE">Hole To Hole Clearance (Gap=0.254mm) (All),(All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#IDZGAVWE5JXF0DIV1ZAVWPOSCFRCJMHZ3HAC52CYDEGQ32PY0OIVO">Minimum Solder Mask Sliver (Gap=0.1mm) (All),(All)</a></td>
+<td class="column2">18</td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#ID0VJGNRSKUDTVOUXYGOM5E13S3KULAFQVJTNWQGE3MYMSN4WPTUZK">Silk To Solder Mask (Clearance=0.1mm) (IsPad),(All)</a></td>
+<td class="column2">1</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#IDNPMQSBVQ4UEXC12SKIYQEAHVTL3PL1PON34CNBNDO5UKI3ISBTZD">Silk to Silk (Clearance=0.1mm) (All),(All)</a></td>
+<td class="column2">1</td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#IDNQWDN5VAZJ23IY0TYQFB3KZUUNMS22KGIW1LJQD530WKOKQD1WYF">Net Antennae (Tolerance=0mm) (All)</a></td>
+<td class="column2">14</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#IDS3LCGTDRRF04CLGCHFMMVDANLJAVDJOLWVND0JF2Q1FGDZHQXC0M">Board Clearance Constraint (Gap=0mm) (All)</a></td>
+<td class="column2">6</td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#IDU40KKCXLDL34LGFZ1HPHJ2T1FCL2TDHQ2GW50II1NYTLSRPZV4QE">Height Constraint (Min=0mm) (Max=25.4mm) (Prefered=12.7mm) (All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr>
+<td style="font-weight : bold; text-align : right" class="column1">Total</td>
+<td style="font-weight : bold" class="column2">147</td>
+</tr>
+</table><br><a name="ID40MPXHTSUIXOBWELGG4QXKVX2LPJIQ2UON0AG3DULE12UIF5D2X"><table>
+<tr>
+<th style="text-align : left" colspan="1" class="rule">Clearance Constraint (Gap=0.203mm) (OnLayer('Top Layer')),(All)</th>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Sam\Documents\EDA\SFP Interface\SFP-Interface\SFP-Interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2136.517mil|Location2.X=2145.767mil|Location1.Y=2134.351mil|Location2.Y=2143.601mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Sam\Documents\EDA\SFP Interface\SFP-Interface\SFP-Interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2136.517mil|Location2.X=2145.767mil|Location1.Y=2134.351mil|Location2.Y=2143.601mil|Absolute=True">Clearance Constraint: (0.2mm &lt; 0.203mm) Between Pad U1-45(28.785mm,29.325mm) on Top Layer And Track (29.185mm,26.06mm)(29.185mm,29.325mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Sam\Documents\EDA\SFP Interface\SFP-Interface\SFP-Interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2152.265mil|Location2.X=2161.515mil|Location1.Y=2134.351mil|Location2.Y=2143.601mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Sam\Documents\EDA\SFP Interface\SFP-Interface\SFP-Interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2152.265mil|Location2.X=2161.515mil|Location1.Y=2134.351mil|Location2.Y=2143.601mil|Absolute=True">Clearance Constraint: (0.2mm &lt; 0.203mm) Between Pad U1-47(29.585mm,29.325mm) on Top Layer And Track (29.185mm,26.06mm)(29.185mm,29.325mm) on Top Layer </acronym></a><br></td>
+</tr>
+</table></a><hr color="#EEEEEE"><a href="#top" style="font-size: 0.9em">Back to top</a><br><br><a name="IDFMZCXBMA2K1DL5LFD2PFZQA4JIOZDG0ACT2TBCO2WURWEX4A0ZGH"><table>
+<tr>
+<th style="text-align : left" colspan="1" class="rule">Clearance Constraint (Gap=0.2mm) (All),(All)</th>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Sam\Documents\EDA\SFP Interface\SFP-Interface\SFP-Interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1159.277mil|Location2.X=1165.526mil|Location1.Y=2352.978mil|Location2.Y=2359.227mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Sam\Documents\EDA\SFP Interface\SFP-Interface\SFP-Interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1159.277mil|Location2.X=1165.526mil|Location1.Y=2352.978mil|Location2.Y=2359.227mil|Absolute=True">Clearance Constraint: (Collision &lt; 0.2mm) Between Pad J1-S1(4.125mm,34.445mm) on Multi-Layer And Region (0 hole(s)) Keep-Out Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Sam\Documents\EDA\SFP Interface\SFP-Interface\SFP-Interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1720.301mil|Location2.X=1726.55mil|Location1.Y=2069.513mil|Location2.Y=2075.762mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Sam\Documents\EDA\SFP Interface\SFP-Interface\SFP-Interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1720.301mil|Location2.X=1726.55mil|Location1.Y=2069.513mil|Location2.Y=2075.762mil|Absolute=True">Clearance Constraint: (Collision &lt; 0.2mm) Between Pad J1-S10(18.375mm,27.245mm) on Multi-Layer And Region (0 hole(s)) Keep-Out Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Sam\Documents\EDA\SFP Interface\SFP-Interface\SFP-Interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1119.907mil|Location2.X=1126.156mil|Location1.Y=1998.647mil|Location2.Y=2004.896mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Sam\Documents\EDA\SFP Interface\SFP-Interface\SFP-Interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1119.907mil|Location2.X=1126.156mil|Location1.Y=1998.647mil|Location2.Y=2004.896mil|Absolute=True">Clearance Constraint: (Collision &lt; 0.2mm) Between Pad J1-S11(4.125mm,24.445mm) on Multi-Layer And Region (0 hole(s)) Keep-Out Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Sam\Documents\EDA\SFP Interface\SFP-Interface\SFP-Interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1119.907mil|Location2.X=1126.156mil|Location1.Y=1604.946mil|Location2.Y=1611.196mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Sam\Documents\EDA\SFP Interface\SFP-Interface\SFP-Interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1119.907mil|Location2.X=1126.156mil|Location1.Y=1604.946mil|Location2.Y=1611.196mil|Absolute=True">Clearance Constraint: (Collision &lt; 0.2mm) Between Pad J1-S12(4.125mm,14.445mm) on Multi-Layer And Region (0 hole(s)) Keep-Out Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Sam\Documents\EDA\SFP Interface\SFP-Interface\SFP-Interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1119.907mil|Location2.X=1126.156mil|Location1.Y=1211.245mil|Location2.Y=1217.495mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Sam\Documents\EDA\SFP Interface\SFP-Interface\SFP-Interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1119.907mil|Location2.X=1126.156mil|Location1.Y=1211.245mil|Location2.Y=1217.495mil|Absolute=True">Clearance Constraint: (Collision &lt; 0.2mm) Between Pad J1-S13(4.125mm,4.445mm) on Multi-Layer And Region (0 hole(s)) Keep-Out Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Sam\Documents\EDA\SFP Interface\SFP-Interface\SFP-Interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1343.332mil|Location2.X=1349.581mil|Location1.Y=1998.647mil|Location2.Y=2004.896mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Sam\Documents\EDA\SFP Interface\SFP-Interface\SFP-Interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1343.332mil|Location2.X=1349.581mil|Location1.Y=1998.647mil|Location2.Y=2004.896mil|Absolute=True">Clearance Constraint: (Collision &lt; 0.2mm) Between Pad J1-S14(9.8mm,24.445mm) on Multi-Layer And Region (0 hole(s)) Keep-Out Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Sam\Documents\EDA\SFP Interface\SFP-Interface\SFP-Interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1457.505mil|Location2.X=1463.755mil|Location1.Y=1211.245mil|Location2.Y=1217.495mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Sam\Documents\EDA\SFP Interface\SFP-Interface\SFP-Interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1457.505mil|Location2.X=1463.755mil|Location1.Y=1211.245mil|Location2.Y=1217.495mil|Absolute=True">Clearance Constraint: (Collision &lt; 0.2mm) Between Pad J1-S15(12.7mm,4.445mm) on Multi-Layer And Region (0 hole(s)) Keep-Out Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Sam\Documents\EDA\SFP Interface\SFP-Interface\SFP-Interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1555.93mil|Location2.X=1562.18mil|Location1.Y=1998.647mil|Location2.Y=2004.896mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Sam\Documents\EDA\SFP Interface\SFP-Interface\SFP-Interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1555.93mil|Location2.X=1562.18mil|Location1.Y=1998.647mil|Location2.Y=2004.896mil|Absolute=True">Clearance Constraint: (Collision &lt; 0.2mm) Between Pad J1-S16(15.2mm,24.445mm) on Multi-Layer And Region (0 hole(s)) Keep-Out Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Sam\Documents\EDA\SFP Interface\SFP-Interface\SFP-Interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1680.93mil|Location2.X=1687.18mil|Location1.Y=1408.096mil|Location2.Y=1414.345mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Sam\Documents\EDA\SFP Interface\SFP-Interface\SFP-Interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1680.93mil|Location2.X=1687.18mil|Location1.Y=1408.096mil|Location2.Y=1414.345mil|Absolute=True">Clearance Constraint: (Collision &lt; 0.2mm) Between Pad J1-S17(18.375mm,9.445mm) on Multi-Layer And Region (0 hole(s)) Keep-Out Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Sam\Documents\EDA\SFP Interface\SFP-Interface\SFP-Interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1680.93mil|Location2.X=1687.18mil|Location1.Y=1801.797mil|Location2.Y=1808.046mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Sam\Documents\EDA\SFP Interface\SFP-Interface\SFP-Interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1680.93mil|Location2.X=1687.18mil|Location1.Y=1801.797mil|Location2.Y=1808.046mil|Absolute=True">Clearance Constraint: (Collision &lt; 0.2mm) Between Pad J1-S18(18.375mm,19.445mm) on Multi-Layer And Region (0 hole(s)) Keep-Out Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Sam\Documents\EDA\SFP Interface\SFP-Interface\SFP-Interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1680.93mil|Location2.X=1687.18mil|Location1.Y=2195.497mil|Location2.Y=2201.747mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Sam\Documents\EDA\SFP Interface\SFP-Interface\SFP-Interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1680.93mil|Location2.X=1687.18mil|Location1.Y=2195.497mil|Location2.Y=2201.747mil|Absolute=True">Clearance Constraint: (Collision &lt; 0.2mm) Between Pad J1-S19(18.375mm,29.445mm) on Multi-Layer And Region (0 hole(s)) Keep-Out Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Sam\Documents\EDA\SFP Interface\SFP-Interface\SFP-Interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1159.277mil|Location2.X=1165.526mil|Location1.Y=2451.403mil|Location2.Y=2457.652mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Sam\Documents\EDA\SFP Interface\SFP-Interface\SFP-Interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1159.277mil|Location2.X=1165.526mil|Location1.Y=2451.403mil|Location2.Y=2457.652mil|Absolute=True">Clearance Constraint: (Collision &lt; 0.2mm) Between Pad J1-S2(4.125mm,36.945mm) on Multi-Layer And Region (0 hole(s)) Keep-Out Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Sam\Documents\EDA\SFP Interface\SFP-Interface\SFP-Interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1680.93mil|Location2.X=1687.18mil|Location1.Y=2589.198mil|Location2.Y=2595.447mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Sam\Documents\EDA\SFP Interface\SFP-Interface\SFP-Interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1680.93mil|Location2.X=1687.18mil|Location1.Y=2589.198mil|Location2.Y=2595.447mil|Absolute=True">Clearance Constraint: (Collision &lt; 0.2mm) Between Pad J1-S20(18.375mm,39.445mm) on Multi-Layer And Region (0 hole(s)) Keep-Out Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Sam\Documents\EDA\SFP Interface\SFP-Interface\SFP-Interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1159.277mil|Location2.X=1165.526mil|Location1.Y=2254.552mil|Location2.Y=2260.802mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Sam\Documents\EDA\SFP Interface\SFP-Interface\SFP-Interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1159.277mil|Location2.X=1165.526mil|Location1.Y=2254.552mil|Location2.Y=2260.802mil|Absolute=True">Clearance Constraint: (Collision &lt; 0.2mm) Between Pad J1-S3(4.125mm,31.945mm) on Multi-Layer And Region (0 hole(s)) Keep-Out Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Sam\Documents\EDA\SFP Interface\SFP-Interface\SFP-Interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1159.277mil|Location2.X=1165.526mil|Location1.Y=2069.513mil|Location2.Y=2075.762mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Sam\Documents\EDA\SFP Interface\SFP-Interface\SFP-Interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1159.277mil|Location2.X=1165.526mil|Location1.Y=2069.513mil|Location2.Y=2075.762mil|Absolute=True">Clearance Constraint: (Collision &lt; 0.2mm) Between Pad J1-S4(4.125mm,27.245mm) on Multi-Layer And Region (0 hole(s)) Keep-Out Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Sam\Documents\EDA\SFP Interface\SFP-Interface\SFP-Interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1250.812mil|Location2.X=1257.062mil|Location1.Y=2632.505mil|Location2.Y=2638.755mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Sam\Documents\EDA\SFP Interface\SFP-Interface\SFP-Interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1250.812mil|Location2.X=1257.062mil|Location1.Y=2632.505mil|Location2.Y=2638.755mil|Absolute=True">Clearance Constraint: (Collision &lt; 0.2mm) Between Pad J1-S5(6.45mm,41.545mm) on Multi-Layer And Region (0 hole(s)) Keep-Out Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Sam\Documents\EDA\SFP Interface\SFP-Interface\SFP-Interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1439.789mil|Location2.X=1446.038mil|Location1.Y=2632.505mil|Location2.Y=2638.755mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Sam\Documents\EDA\SFP Interface\SFP-Interface\SFP-Interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1439.789mil|Location2.X=1446.038mil|Location1.Y=2632.505mil|Location2.Y=2638.755mil|Absolute=True">Clearance Constraint: (Collision &lt; 0.2mm) Between Pad J1-S6(11.25mm,41.545mm) on Multi-Layer And Region (0 hole(s)) Keep-Out Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Sam\Documents\EDA\SFP Interface\SFP-Interface\SFP-Interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1628.765mil|Location2.X=1635.014mil|Location1.Y=2632.505mil|Location2.Y=2638.755mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Sam\Documents\EDA\SFP Interface\SFP-Interface\SFP-Interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1628.765mil|Location2.X=1635.014mil|Location1.Y=2632.505mil|Location2.Y=2638.755mil|Absolute=True">Clearance Constraint: (Collision &lt; 0.2mm) Between Pad J1-S7(16.05mm,41.545mm) on Multi-Layer And Region (0 hole(s)) Keep-Out Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Sam\Documents\EDA\SFP Interface\SFP-Interface\SFP-Interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1720.301mil|Location2.X=1726.55mil|Location1.Y=2451.403mil|Location2.Y=2457.652mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Sam\Documents\EDA\SFP Interface\SFP-Interface\SFP-Interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1720.301mil|Location2.X=1726.55mil|Location1.Y=2451.403mil|Location2.Y=2457.652mil|Absolute=True">Clearance Constraint: (Collision &lt; 0.2mm) Between Pad J1-S8(18.375mm,36.945mm) on Multi-Layer And Region (0 hole(s)) Keep-Out Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Sam\Documents\EDA\SFP Interface\SFP-Interface\SFP-Interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1720.301mil|Location2.X=1726.55mil|Location1.Y=2254.552mil|Location2.Y=2260.802mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Sam\Documents\EDA\SFP Interface\SFP-Interface\SFP-Interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1720.301mil|Location2.X=1726.55mil|Location1.Y=2254.552mil|Location2.Y=2260.802mil|Absolute=True">Clearance Constraint: (Collision &lt; 0.2mm) Between Pad J1-S9(18.375mm,31.945mm) on Multi-Layer And Region (0 hole(s)) Keep-Out Layer </acronym></a><br></td>
+</tr>
+</table></a><hr color="#EEEEEE"><a href="#top" style="font-size: 0.9em">Back to top</a><br><br><a name="IDDOBP5DKLPK0ULGIAO3ZHD0B54BCFLNQWVCU2R4DUNWGPAQKXCX4H"><table>
+<tr>
+<th style="text-align : left" colspan="1" class="rule">Un-Routed Net Constraint ( (All) )</th>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Sam\Documents\EDA\SFP Interface\SFP-Interface\SFP-Interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2452.693mil|Location2.X=2670mil|Location1.Y=2303.283mil|Location2.Y=2690mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Sam\Documents\EDA\SFP Interface\SFP-Interface\SFP-Interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2452.693mil|Location2.X=2670mil|Location1.Y=2303.283mil|Location2.Y=2690mil|Absolute=True">Un-Routed Net Constraint: Net +3.3V Between Pad C8-2(37.4mm,33.655mm) on Top Layer And Pad *-1(41.021mm,42.545mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Sam\Documents\EDA\SFP Interface\SFP-Interface\SFP-Interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2720mil|Location2.X=2830mil|Location1.Y=2610mil|Location2.Y=2690mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Sam\Documents\EDA\SFP Interface\SFP-Interface\SFP-Interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2720mil|Location2.X=2830mil|Location1.Y=2610mil|Location2.Y=2690mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad *-4(45.085mm,41.275mm) on Top Layer And Pad *-2(45.085mm,42.545mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Sam\Documents\EDA\SFP Interface\SFP-Interface\SFP-Interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2560mil|Location2.X=2830mil|Location1.Y=2610mil|Location2.Y=2640mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Sam\Documents\EDA\SFP Interface\SFP-Interface\SFP-Interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2560mil|Location2.X=2830mil|Location1.Y=2610mil|Location2.Y=2640mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad *-3(41.021mm,41.275mm) on Top Layer And Pad *-4(45.085mm,41.275mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Sam\Documents\EDA\SFP Interface\SFP-Interface\SFP-Interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2560mil|Location2.X=2670mil|Location1.Y=2560mil|Location2.Y=2640mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Sam\Documents\EDA\SFP Interface\SFP-Interface\SFP-Interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2560mil|Location2.X=2670mil|Location1.Y=2560mil|Location2.Y=2640mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad *-5(41.021mm,40.005mm) on Top Layer And Pad *-3(41.021mm,41.275mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Sam\Documents\EDA\SFP Interface\SFP-Interface\SFP-Interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2507.811mil|Location2.X=2670mil|Location1.Y=2303.283mil|Location2.Y=2590mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Sam\Documents\EDA\SFP Interface\SFP-Interface\SFP-Interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2507.811mil|Location2.X=2670mil|Location1.Y=2303.283mil|Location2.Y=2590mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad C8-1(38.8mm,33.655mm) on Top Layer And Pad *-5(41.021mm,40.005mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Sam\Documents\EDA\SFP Interface\SFP-Interface\SFP-Interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2078.284mil|Location2.X=2271.716mil|Location1.Y=1975.134mil|Location2.Y=2017.189mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Sam\Documents\EDA\SFP Interface\SFP-Interface\SFP-Interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2078.284mil|Location2.X=2271.716mil|Location1.Y=1975.134mil|Location2.Y=2017.189mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad C11-1(27.94mm,25.27mm) on Top Layer And Pad C10-1(31.75mm,25.335mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Sam\Documents\EDA\SFP Interface\SFP-Interface\SFP-Interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2228.283mil|Location2.X=2321.716mil|Location1.Y=1927.693mil|Location2.Y=2017.189mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Sam\Documents\EDA\SFP Interface\SFP-Interface\SFP-Interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2228.283mil|Location2.X=2321.716mil|Location1.Y=1927.693mil|Location2.Y=2017.189mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad C10-1(31.75mm,25.335mm) on Top Layer And Pad C16-1(33.02mm,24.065mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Sam\Documents\EDA\SFP Interface\SFP-Interface\SFP-Interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2228.283mil|Location2.X=2271.716mil|Location1.Y=1753.284mil|Location2.Y=2072.307mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Sam\Documents\EDA\SFP Interface\SFP-Interface\SFP-Interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2228.283mil|Location2.X=2271.716mil|Location1.Y=1753.284mil|Location2.Y=2072.307mil|Absolute=True">Un-Routed Net Constraint: Net +3.3V Between Pad C10-2(31.75mm,26.735mm) on Top Layer And Pad R15-2(31.75mm,19.685mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Sam\Documents\EDA\SFP Interface\SFP-Interface\SFP-Interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2028.284mil|Location2.X=2121.716mil|Location1.Y=1975.134mil|Location2.Y=2014.63mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Sam\Documents\EDA\SFP Interface\SFP-Interface\SFP-Interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2028.284mil|Location2.X=2121.716mil|Location1.Y=1975.134mil|Location2.Y=2014.63mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad C12-1(26.67mm,25.27mm) on Top Layer And Pad C11-1(27.94mm,25.27mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Sam\Documents\EDA\SFP Interface\SFP-Interface\SFP-Interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2028.284mil|Location2.X=2121.716mil|Location1.Y=2030.252mil|Location2.Y=2069.748mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Sam\Documents\EDA\SFP Interface\SFP-Interface\SFP-Interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2028.284mil|Location2.X=2121.716mil|Location1.Y=2030.252mil|Location2.Y=2069.748mil|Absolute=True">Un-Routed Net Constraint: Net +3.3V Between Pad C12-2(26.67mm,26.67mm) on Top Layer And Pad C11-2(27.94mm,26.67mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Sam\Documents\EDA\SFP Interface\SFP-Interface\SFP-Interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2078.284mil|Location2.X=2121.716mil|Location1.Y=2030.252mil|Location2.Y=2175.063mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Sam\Documents\EDA\SFP Interface\SFP-Interface\SFP-Interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2078.284mil|Location2.X=2121.716mil|Location1.Y=2030.252mil|Location2.Y=2175.063mil|Absolute=True">Un-Routed Net Constraint: Net +3.3V Between Pad C11-2(27.94mm,26.67mm) on Top Layer And Pad U1-43(27.985mm,29.325mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Sam\Documents\EDA\SFP Interface\SFP-Interface\SFP-Interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1925.134mil|Location2.X=2071.716mil|Location1.Y=1975.134mil|Location2.Y=2196.716mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Sam\Documents\EDA\SFP Interface\SFP-Interface\SFP-Interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1925.134mil|Location2.X=2071.716mil|Location1.Y=1975.134mil|Location2.Y=2196.716mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad C13-1(24mm,29.845mm) on Top Layer And Pad C12-1(26.67mm,25.27mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Sam\Documents\EDA\SFP Interface\SFP-Interface\SFP-Interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1925.134mil|Location2.X=1964.63mil|Location1.Y=2153.284mil|Location2.Y=2346.716mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Sam\Documents\EDA\SFP Interface\SFP-Interface\SFP-Interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1925.134mil|Location2.X=1964.63mil|Location1.Y=2153.284mil|Location2.Y=2346.716mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad C13-1(24mm,29.845mm) on Top Layer And Pad C14-1(24mm,33.655mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Sam\Documents\EDA\SFP Interface\SFP-Interface\SFP-Interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1578.677mil|Location2.X=1964.63mil|Location1.Y=2153.284mil|Location2.Y=2273.488mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Sam\Documents\EDA\SFP Interface\SFP-Interface\SFP-Interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1578.677mil|Location2.X=1964.63mil|Location1.Y=2153.284mil|Location2.Y=2273.488mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad J1-10(15.05mm,31.245mm) on Top Layer And Pad C13-1(24mm,29.845mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Sam\Documents\EDA\SFP Interface\SFP-Interface\SFP-Interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1980.252mil|Location2.X=2089.433mil|Location1.Y=2153.284mil|Location2.Y=2196.716mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Sam\Documents\EDA\SFP Interface\SFP-Interface\SFP-Interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1980.252mil|Location2.X=2089.433mil|Location1.Y=2153.284mil|Location2.Y=2196.716mil|Absolute=True">Un-Routed Net Constraint: Net +3.3V Between Pad C13-2(25.4mm,29.845mm) on Top Layer And Pad U1-42(27.15mm,30.16mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Sam\Documents\EDA\SFP Interface\SFP-Interface\SFP-Interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1925.134mil|Location2.X=1964.63mil|Location1.Y=2303.284mil|Location2.Y=2446.716mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Sam\Documents\EDA\SFP Interface\SFP-Interface\SFP-Interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1925.134mil|Location2.X=1964.63mil|Location1.Y=2303.284mil|Location2.Y=2446.716mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad C14-1(24mm,33.655mm) on Top Layer And Pad C17-1(24mm,36.195mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Sam\Documents\EDA\SFP Interface\SFP-Interface\SFP-Interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1980.252mil|Location2.X=2089.433mil|Location1.Y=2303.284mil|Location2.Y=2346.716mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Sam\Documents\EDA\SFP Interface\SFP-Interface\SFP-Interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1980.252mil|Location2.X=2089.433mil|Location1.Y=2303.284mil|Location2.Y=2346.716mil|Absolute=True">Un-Routed Net Constraint: Net +3.3V Between Pad C14-2(25.4mm,33.655mm) on Top Layer And Pad U1-33(27.15mm,33.76mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Sam\Documents\EDA\SFP Interface\SFP-Interface\SFP-Interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2078.283mil|Location2.X=2221.717mil|Location1.Y=2477.693mil|Location2.Y=2572.307mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Sam\Documents\EDA\SFP Interface\SFP-Interface\SFP-Interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2078.283mil|Location2.X=2221.717mil|Location1.Y=2477.693mil|Location2.Y=2572.307mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad C4-1(27.94mm,38.035mm) on Top Layer And Pad C15-1(30.48mm,39.435mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Sam\Documents\EDA\SFP Interface\SFP-Interface\SFP-Interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2178.284mil|Location2.X=2271.717mil|Location1.Y=2532.811mil|Location2.Y=2572.307mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Sam\Documents\EDA\SFP Interface\SFP-Interface\SFP-Interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2178.284mil|Location2.X=2271.717mil|Location1.Y=2532.811mil|Location2.Y=2572.307mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad C15-1(30.48mm,39.435mm) on Top Layer And Pad C7-1(31.75mm,39.435mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Sam\Documents\EDA\SFP Interface\SFP-Interface\SFP-Interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2139.11mil|Location2.X=2269.157mil|Location1.Y=2224.74mil|Location2.Y=2572.307mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Sam\Documents\EDA\SFP Interface\SFP-Interface\SFP-Interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2139.11mil|Location2.X=2269.157mil|Location1.Y=2224.74mil|Location2.Y=2572.307mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad C15-1(30.48mm,39.435mm) on Top Layer And Pad U1-57(30.585mm,32.76mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Sam\Documents\EDA\SFP Interface\SFP-Interface\SFP-Interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2049.213mil|Location2.X=2300mil|Location1.Y=2539.567mil|Location2.Y=2652.559mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Sam\Documents\EDA\SFP Interface\SFP-Interface\SFP-Interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2049.213mil|Location2.X=2300mil|Location1.Y=2539.567mil|Location2.Y=2652.559mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Track (29.09mm,41.645mm)(29.19mm,41.645mm) on Top Layer And Pad C15-1(30.48mm,39.435mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Sam\Documents\EDA\SFP Interface\SFP-Interface\SFP-Interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2169.819mil|Location2.X=2321.716mil|Location1.Y=1523.362mil|Location2.Y=1967.189mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Sam\Documents\EDA\SFP Interface\SFP-Interface\SFP-Interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2169.819mil|Location2.X=2321.716mil|Location1.Y=1523.362mil|Location2.Y=1967.189mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad D1-2(31.115mm,14.145mm) on Top Layer And Pad C16-1(33.02mm,24.065mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Sam\Documents\EDA\SFP Interface\SFP-Interface\SFP-Interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2204.071mil|Location2.X=2321.716mil|Location1.Y=1982.811mil|Location2.Y=2175.063mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Sam\Documents\EDA\SFP Interface\SFP-Interface\SFP-Interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2204.071mil|Location2.X=2321.716mil|Location1.Y=1982.811mil|Location2.Y=2175.063mil|Absolute=True">Un-Routed Net Constraint: Net NetC15_2 Between Pad U1-50(30.785mm,29.325mm) on Top Layer And Pad C16-2(33.02mm,25.465mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Sam\Documents\EDA\SFP Interface\SFP-Interface\SFP-Interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1925.134mil|Location2.X=2071.716mil|Location1.Y=2403.284mil|Location2.Y=2517.189mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Sam\Documents\EDA\SFP Interface\SFP-Interface\SFP-Interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1925.134mil|Location2.X=2071.716mil|Location1.Y=2403.284mil|Location2.Y=2517.189mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad C17-1(24mm,36.195mm) on Top Layer And Pad C3-1(26.67mm,38.035mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Sam\Documents\EDA\SFP Interface\SFP-Interface\SFP-Interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1980.252mil|Location2.X=2188.449mil|Location1.Y=2403.284mil|Location2.Y=2446.716mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Sam\Documents\EDA\SFP Interface\SFP-Interface\SFP-Interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1980.252mil|Location2.X=2188.449mil|Location1.Y=2403.284mil|Location2.Y=2446.716mil|Absolute=True">Un-Routed Net Constraint: Net NetC15_2 Between Pad C17-2(25.4mm,36.195mm) on Top Layer And Pad U1-23(29.985mm,36.195mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Sam\Documents\EDA\SFP Interface\SFP-Interface\SFP-Interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2778.284mil|Location2.X=2821.717mil|Location1.Y=1272.244mil|Location2.Y=1472.307mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Sam\Documents\EDA\SFP Interface\SFP-Interface\SFP-Interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2778.284mil|Location2.X=2821.717mil|Location1.Y=1272.244mil|Location2.Y=1472.307mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad C2-1(45.72mm,11.495mm) on Top Layer And Pad J2-B1-A12(45.745mm,7.49mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Sam\Documents\EDA\SFP Interface\SFP-Interface\SFP-Interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2778.284mil|Location2.X=2921.716mil|Location1.Y=1432.811mil|Location2.Y=1494.748mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Sam\Documents\EDA\SFP Interface\SFP-Interface\SFP-Interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2778.284mil|Location2.X=2921.716mil|Location1.Y=1432.811mil|Location2.Y=1494.748mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad C2-1(45.72mm,11.495mm) on Top Layer And Pad R10-2(48.26mm,12.065mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Sam\Documents\EDA\SFP Interface\SFP-Interface\SFP-Interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2728.284mil|Location2.X=2821.717mil|Location1.Y=1432.811mil|Location2.Y=1472.307mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Sam\Documents\EDA\SFP Interface\SFP-Interface\SFP-Interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2728.284mil|Location2.X=2821.717mil|Location1.Y=1432.811mil|Location2.Y=1472.307mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad R8-1(44.45mm,11.495mm) on Top Layer And Pad C2-1(45.72mm,11.495mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Sam\Documents\EDA\SFP Interface\SFP-Interface\SFP-Interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2028.283mil|Location2.X=2121.716mil|Location1.Y=2477.693mil|Location2.Y=2517.189mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Sam\Documents\EDA\SFP Interface\SFP-Interface\SFP-Interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2028.283mil|Location2.X=2121.716mil|Location1.Y=2477.693mil|Location2.Y=2517.189mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad C3-1(26.67mm,38.035mm) on Top Layer And Pad C4-1(27.94mm,38.035mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Sam\Documents\EDA\SFP Interface\SFP-Interface\SFP-Interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2078.283mil|Location2.X=2321.717mil|Location1.Y=2532.811mil|Location2.Y=2572.307mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Sam\Documents\EDA\SFP Interface\SFP-Interface\SFP-Interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2078.283mil|Location2.X=2321.717mil|Location1.Y=2532.811mil|Location2.Y=2572.307mil|Absolute=True">Un-Routed Net Constraint: Net NetC4_2 Between Pad C4-2(27.94mm,39.435mm) on Top Layer And Pad R6-1(33.02mm,39.435mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Sam\Documents\EDA\SFP Interface\SFP-Interface\SFP-Interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2878.283mil|Location2.X=2921.716mil|Location1.Y=1502.693mil|Location2.Y=1969.748mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Sam\Documents\EDA\SFP Interface\SFP-Interface\SFP-Interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2878.283mil|Location2.X=2921.716mil|Location1.Y=1502.693mil|Location2.Y=1969.748mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad C5-1(48.26mm,13.27mm) on Top Layer And Pad C6-1(48.26mm,24.13mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Sam\Documents\EDA\SFP Interface\SFP-Interface\SFP-Interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2878.283mil|Location2.X=2921.716mil|Location1.Y=1455.252mil|Location2.Y=1542.189mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Sam\Documents\EDA\SFP Interface\SFP-Interface\SFP-Interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2878.283mil|Location2.X=2921.716mil|Location1.Y=1455.252mil|Location2.Y=1542.189mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad C5-1(48.26mm,13.27mm) on Top Layer And Pad R10-2(48.26mm,12.065mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Sam\Documents\EDA\SFP Interface\SFP-Interface\SFP-Interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2700mil|Location2.X=3000mil|Location1.Y=1846.654mil|Location2.Y=2105.118mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Sam\Documents\EDA\SFP Interface\SFP-Interface\SFP-Interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2700mil|Location2.X=3000mil|Location1.Y=1846.654mil|Location2.Y=2105.118mil|Absolute=True">Un-Routed Net Constraint: Net +3.3V Between Track (45.72mm,24.045mm)(47.005mm,22.76mm) on Top Layer And Pad C6-2(48.26mm,25.53mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Sam\Documents\EDA\SFP Interface\SFP-Interface\SFP-Interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2128.283mil|Location2.X=2271.717mil|Location1.Y=2477.693mil|Location2.Y=2572.307mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Sam\Documents\EDA\SFP Interface\SFP-Interface\SFP-Interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2128.283mil|Location2.X=2271.717mil|Location1.Y=2477.693mil|Location2.Y=2572.307mil|Absolute=True">Un-Routed Net Constraint: Net +3.3V Between Pad R17-2(29.21mm,39.435mm) on Top Layer And Pad C7-2(31.75mm,38.035mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Sam\Documents\EDA\SFP Interface\SFP-Interface\SFP-Interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2188.323mil|Location2.X=2271.717mil|Location1.Y=2404.465mil|Location2.Y=2517.189mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Sam\Documents\EDA\SFP Interface\SFP-Interface\SFP-Interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2188.323mil|Location2.X=2271.717mil|Location1.Y=2404.465mil|Location2.Y=2517.189mil|Absolute=True">Un-Routed Net Constraint: Net +3.3V Between Pad U1-22(30.385mm,36.195mm) on Top Layer And Pad C7-2(31.75mm,38.035mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Sam\Documents\EDA\SFP Interface\SFP-Interface\SFP-Interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2507.811mil|Location2.X=2547.307mil|Location1.Y=2153.283mil|Location2.Y=2346.716mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Sam\Documents\EDA\SFP Interface\SFP-Interface\SFP-Interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2507.811mil|Location2.X=2547.307mil|Location1.Y=2153.283mil|Location2.Y=2346.716mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad C9-1(38.8mm,29.845mm) on Top Layer And Pad C8-1(38.8mm,33.655mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Sam\Documents\EDA\SFP Interface\SFP-Interface\SFP-Interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2139.11mil|Location2.X=2547.307mil|Location1.Y=2224.74mil|Location2.Y=2354.787mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Sam\Documents\EDA\SFP Interface\SFP-Interface\SFP-Interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2139.11mil|Location2.X=2547.307mil|Location1.Y=2224.74mil|Location2.Y=2354.787mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad U1-57(30.585mm,32.76mm) on Top Layer And Pad C8-1(38.8mm,33.655mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Sam\Documents\EDA\SFP Interface\SFP-Interface\SFP-Interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2507.811mil|Location2.X=2665.417mil|Location1.Y=2213.52mil|Location2.Y=2346.716mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Sam\Documents\EDA\SFP Interface\SFP-Interface\SFP-Interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2507.811mil|Location2.X=2665.417mil|Location1.Y=2213.52mil|Location2.Y=2346.716mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad C8-1(38.8mm,33.655mm) on Top Layer And Pad U3-4(41.91mm,31.75mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Sam\Documents\EDA\SFP Interface\SFP-Interface\SFP-Interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2318.835mil|Location2.X=2492.189mil|Location1.Y=2153.283mil|Location2.Y=2196.716mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Sam\Documents\EDA\SFP Interface\SFP-Interface\SFP-Interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2318.835mil|Location2.X=2492.189mil|Location1.Y=2153.283mil|Location2.Y=2196.716mil|Absolute=True">Un-Routed Net Constraint: Net +3.3V Between Pad U1-1(34.02mm,30.16mm) on Top Layer And Pad C9-2(37.4mm,29.845mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Sam\Documents\EDA\SFP Interface\SFP-Interface\SFP-Interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2169.819mil|Location2.X=2617.976mil|Location1.Y=1507.614mil|Location2.Y=1594.354mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Sam\Documents\EDA\SFP Interface\SFP-Interface\SFP-Interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2169.819mil|Location2.X=2617.976mil|Location1.Y=1507.614mil|Location2.Y=1594.354mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad D1-2(31.115mm,14.145mm) on Top Layer And Pad U2-1(40.245mm,13.995mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Sam\Documents\EDA\SFP Interface\SFP-Interface\SFP-Interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1761.417mil|Location2.X=2050mil|Location1.Y=1317.323mil|Location2.Y=1656.89mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Sam\Documents\EDA\SFP Interface\SFP-Interface\SFP-Interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1761.417mil|Location2.X=2050mil|Location1.Y=1317.323mil|Location2.Y=1656.89mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Track (21.88mm,10.475mm)(21.88mm,10.6mm) on Top Layer And Pad D2-2(24.13mm,14.145mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Sam\Documents\EDA\SFP Interface\SFP-Interface\SFP-Interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1850mil|Location2.X=2303.347mil|Location1.Y=1456.89mil|Location2.Y=1656.89mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Sam\Documents\EDA\SFP Interface\SFP-Interface\SFP-Interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1850mil|Location2.X=2303.347mil|Location1.Y=1456.89mil|Location2.Y=1656.89mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad D2-2(24.13mm,14.145mm) on Top Layer And Track (30.565mm,14.145mm)(31.115mm,14.145mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Sam\Documents\EDA\SFP Interface\SFP-Interface\SFP-Interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1295.213mil|Location2.X=1574.866mil|Location1.Y=2186.748mil|Location2.Y=2273.488mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Sam\Documents\EDA\SFP Interface\SFP-Interface\SFP-Interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1295.213mil|Location2.X=1574.866mil|Location1.Y=2186.748mil|Location2.Y=2273.488mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad J1-1(7.85mm,31.245mm) on Top Layer And Pad J1-9(14.25mm,31.245mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Sam\Documents\EDA\SFP Interface\SFP-Interface\SFP-Interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1131.669mil|Location2.X=1322.898mil|Location1.Y=2186.748mil|Location2.Y=2386.835mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Sam\Documents\EDA\SFP Interface\SFP-Interface\SFP-Interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1131.669mil|Location2.X=1322.898mil|Location1.Y=2186.748mil|Location2.Y=2386.835mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad J1-S1(4.125mm,34.445mm) on Multi-Layer And Pad J1-1(7.85mm,31.245mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Sam\Documents\EDA\SFP Interface\SFP-Interface\SFP-Interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1547.181mil|Location2.X=1606.362mil|Location1.Y=2186.748mil|Location2.Y=2273.488mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Sam\Documents\EDA\SFP Interface\SFP-Interface\SFP-Interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1547.181mil|Location2.X=1606.362mil|Location1.Y=2186.748mil|Location2.Y=2273.488mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad J1-9(14.25mm,31.245mm) on Top Layer And Pad J1-10(15.05mm,31.245mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Sam\Documents\EDA\SFP Interface\SFP-Interface\SFP-Interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1468.441mil|Location2.X=1590.614mil|Location1.Y=2509.583mil|Location2.Y=2596.323mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Sam\Documents\EDA\SFP Interface\SFP-Interface\SFP-Interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1468.441mil|Location2.X=1590.614mil|Location1.Y=2509.583mil|Location2.Y=2596.323mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad J1-14(12.25mm,39.445mm) on Top Layer And Pad J1-11(14.65mm,39.445mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Sam\Documents\EDA\SFP Interface\SFP-Interface\SFP-Interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1373.953mil|Location2.X=1496.126mil|Location1.Y=2509.583mil|Location2.Y=2596.323mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Sam\Documents\EDA\SFP Interface\SFP-Interface\SFP-Interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1373.953mil|Location2.X=1496.126mil|Location1.Y=2509.583mil|Location2.Y=2596.323mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad J1-17(9.85mm,39.445mm) on Top Layer And Pad J1-14(12.25mm,39.445mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Sam\Documents\EDA\SFP Interface\SFP-Interface\SFP-Interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1405.449mil|Location2.X=1464.63mil|Location1.Y=2509.583mil|Location2.Y=2596.323mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Sam\Documents\EDA\SFP Interface\SFP-Interface\SFP-Interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1405.449mil|Location2.X=1464.63mil|Location1.Y=2509.583mil|Location2.Y=2596.323mil|Absolute=True">Un-Routed Net Constraint: Net +3.3V Between Pad J1-16(10.65mm,39.445mm) on Top Layer And Pad J1-15(11.45mm,39.445mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Sam\Documents\EDA\SFP Interface\SFP-Interface\SFP-Interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1436.945mil|Location2.X=2171.716mil|Location1.Y=2509.583mil|Location2.Y=2596.323mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Sam\Documents\EDA\SFP Interface\SFP-Interface\SFP-Interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1436.945mil|Location2.X=2171.716mil|Location1.Y=2509.583mil|Location2.Y=2596.323mil|Absolute=True">Un-Routed Net Constraint: Net +3.3V Between Pad J1-15(11.45mm,39.445mm) on Top Layer And Pad R17-2(29.21mm,39.435mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Sam\Documents\EDA\SFP Interface\SFP-Interface\SFP-Interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1279.465mil|Location2.X=1401.638mil|Location1.Y=2509.583mil|Location2.Y=2596.323mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Sam\Documents\EDA\SFP Interface\SFP-Interface\SFP-Interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1279.465mil|Location2.X=1401.638mil|Location1.Y=2509.583mil|Location2.Y=2596.323mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad J1-20(7.45mm,39.445mm) on Top Layer And Pad J1-17(9.85mm,39.445mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Sam\Documents\EDA\SFP Interface\SFP-Interface\SFP-Interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1131.669mil|Location2.X=1307.15mil|Location1.Y=2325.37mil|Location2.Y=2596.323mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Sam\Documents\EDA\SFP Interface\SFP-Interface\SFP-Interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1131.669mil|Location2.X=1307.15mil|Location1.Y=2325.37mil|Location2.Y=2596.323mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad J1-S1(4.125mm,34.445mm) on Multi-Layer And Pad J1-20(7.45mm,39.445mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Sam\Documents\EDA\SFP Interface\SFP-Interface\SFP-Interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1389.701mil|Location2.X=2359.905mil|Location1.Y=2186.748mil|Location2.Y=2273.488mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Sam\Documents\EDA\SFP Interface\SFP-Interface\SFP-Interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1389.701mil|Location2.X=2359.905mil|Location1.Y=2186.748mil|Location2.Y=2273.488mil|Absolute=True">Un-Routed Net Constraint: Net NetJ1_4 Between Pad J1-4(10.25mm,31.245mm) on Top Layer And Pad U1-2(34.02mm,30.56mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Sam\Documents\EDA\SFP Interface\SFP-Interface\SFP-Interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1421.197mil|Location2.X=2359.905mil|Location1.Y=2186.748mil|Location2.Y=2273.488mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Sam\Documents\EDA\SFP Interface\SFP-Interface\SFP-Interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1421.197mil|Location2.X=2359.905mil|Location1.Y=2186.748mil|Location2.Y=2273.488mil|Absolute=True">Un-Routed Net Constraint: Net NetJ1_5 Between Pad J1-5(11.05mm,31.245mm) on Top Layer And Pad U1-3(34.02mm,30.96mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Sam\Documents\EDA\SFP Interface\SFP-Interface\SFP-Interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2537.205mil|Location2.X=2596.716mil|Location1.Y=1272.244mil|Location2.Y=1472.307mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Sam\Documents\EDA\SFP Interface\SFP-Interface\SFP-Interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2537.205mil|Location2.X=2596.716mil|Location1.Y=1272.244mil|Location2.Y=1472.307mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad J2-A1-B12(39.345mm,7.49mm) on Top Layer And Pad R9-2(40.005mm,11.495mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Sam\Documents\EDA\SFP Interface\SFP-Interface\SFP-Interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2368.441mil|Location2.X=2572.441mil|Location1.Y=2071mil|Location2.Y=2225mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Sam\Documents\EDA\SFP Interface\SFP-Interface\SFP-Interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2368.441mil|Location2.X=2572.441mil|Location1.Y=2071mil|Location2.Y=2225mil|Absolute=True">Un-Routed Net Constraint: Net +3.3V Between Track (37.298mm,29.743mm)(37.4mm,29.845mm) on Top Layer And Pad R11-2(37.4mm,28.575mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Sam\Documents\EDA\SFP Interface\SFP-Interface\SFP-Interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2553.283mil|Location2.X=2771.717mil|Location1.Y=1432.811mil|Location2.Y=1472.307mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Sam\Documents\EDA\SFP Interface\SFP-Interface\SFP-Interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2553.283mil|Location2.X=2771.717mil|Location1.Y=1432.811mil|Location2.Y=1472.307mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad R9-2(40.005mm,11.495mm) on Top Layer And Pad R8-1(44.45mm,11.495mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Sam\Documents\EDA\SFP Interface\SFP-Interface\SFP-Interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2550.921mil|Location2.X=2617.976mil|Location1.Y=1432.811mil|Location2.Y=1594.354mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Sam\Documents\EDA\SFP Interface\SFP-Interface\SFP-Interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2550.921mil|Location2.X=2617.976mil|Location1.Y=1432.811mil|Location2.Y=1594.354mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad R9-2(40.005mm,11.495mm) on Top Layer And Pad U2-1(40.245mm,13.995mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Sam\Documents\EDA\SFP Interface\SFP-Interface\SFP-Interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2102.89mil|Location2.X=2169.945mil|Location1.Y=1049.15mil|Location2.Y=1450.85mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Sam\Documents\EDA\SFP Interface\SFP-Interface\SFP-Interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2102.89mil|Location2.X=2169.945mil|Location1.Y=1049.15mil|Location2.Y=1450.85mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad S2-1(28.865mm,2.225mm) on Top Layer And Pad S2-3(28.865mm,10.475mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Sam\Documents\EDA\SFP Interface\SFP-Interface\SFP-Interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2036.417mil|Location2.X=2303.347mil|Location1.Y=1312.402mil|Location2.Y=1656.89mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Sam\Documents\EDA\SFP Interface\SFP-Interface\SFP-Interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2036.417mil|Location2.X=2303.347mil|Location1.Y=1312.402mil|Location2.Y=1656.89mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad S2-3(28.865mm,10.475mm) on Top Layer And Track (30.565mm,14.145mm)(31.115mm,14.145mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Sam\Documents\EDA\SFP Interface\SFP-Interface\SFP-Interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2125.331mil|Location2.X=2347.11mil|Location1.Y=1373.953mil|Location2.Y=2445.535mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Sam\Documents\EDA\SFP Interface\SFP-Interface\SFP-Interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2125.331mil|Location2.X=2347.11mil|Location1.Y=1373.953mil|Location2.Y=2445.535mil|Absolute=True">Un-Routed Net Constraint: Net NetR17_1 Between Pad U1-26(28.785mm,36.195mm) on Top Layer And Pad S2-4(33.365mm,10.475mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Sam\Documents\EDA\SFP Interface\SFP-Interface\SFP-Interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2318.835mil|Location2.X=2359.905mil|Location1.Y=2179.465mil|Location2.Y=2337.071mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Sam\Documents\EDA\SFP Interface\SFP-Interface\SFP-Interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2318.835mil|Location2.X=2359.905mil|Location1.Y=2179.465mil|Location2.Y=2337.071mil|Absolute=True">Un-Routed Net Constraint: Net +3.3V Between Pad U1-1(34.02mm,30.16mm) on Top Layer And Pad U1-10(34.02mm,33.76mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Sam\Documents\EDA\SFP Interface\SFP-Interface\SFP-Interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2188.323mil|Location2.X=2359.905mil|Location1.Y=2133.992mil|Location2.Y=2195.339mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Sam\Documents\EDA\SFP Interface\SFP-Interface\SFP-Interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2188.323mil|Location2.X=2359.905mil|Location1.Y=2133.992mil|Location2.Y=2195.339mil|Absolute=True">Un-Routed Net Constraint: Net +3.3V Between Pad U1-49(30.385mm,29.325mm) on Top Layer And Pad U1-1(34.02mm,30.16mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Sam\Documents\EDA\SFP Interface\SFP-Interface\SFP-Interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2239.37mil|Location2.X=2514.47mil|Location1.Y=2229.134mil|Location2.Y=2425mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Sam\Documents\EDA\SFP Interface\SFP-Interface\SFP-Interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2239.37mil|Location2.X=2514.47mil|Location1.Y=2229.134mil|Location2.Y=2425mil|Absolute=True">Un-Routed Net Constraint: Net +3.3V Between Pad U1-10(34.02mm,33.76mm) on Top Layer And Track (35.928mm,33.655mm)(37.4mm,33.655mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Sam\Documents\EDA\SFP Interface\SFP-Interface\SFP-Interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2048.362mil|Location2.X=2204.197mil|Location1.Y=2321.197mil|Location2.Y=2445.535mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Sam\Documents\EDA\SFP Interface\SFP-Interface\SFP-Interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2048.362mil|Location2.X=2204.197mil|Location1.Y=2321.197mil|Location2.Y=2445.535mil|Absolute=True">Un-Routed Net Constraint: Net +3.3V Between Pad U1-33(27.15mm,33.76mm) on Top Layer And Pad U1-22(30.385mm,36.195mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Sam\Documents\EDA\SFP Interface\SFP-Interface\SFP-Interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2172.575mil|Location2.X=2219.945mil|Location1.Y=2133.992mil|Location2.Y=2445.535mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Sam\Documents\EDA\SFP Interface\SFP-Interface\SFP-Interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2172.575mil|Location2.X=2219.945mil|Location1.Y=2133.992mil|Location2.Y=2445.535mil|Absolute=True">Un-Routed Net Constraint: Net NetC15_2 Between Pad U1-23(29.985mm,36.195mm) on Top Layer And Pad U1-50(30.785mm,29.325mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Sam\Documents\EDA\SFP Interface\SFP-Interface\SFP-Interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2080.512mil|Location2.X=2300.621mil|Location1.Y=2325mil|Location2.Y=2574.379mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Sam\Documents\EDA\SFP Interface\SFP-Interface\SFP-Interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2080.512mil|Location2.X=2300.621mil|Location1.Y=2325mil|Location2.Y=2574.379mil|Absolute=True">Un-Routed Net Constraint: Net NetC15_2 Between Pad U1-23(29.985mm,36.195mm) on Top Layer And Track (30.496mm,37.449mm)(30.496mm,38.019mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Sam\Documents\EDA\SFP Interface\SFP-Interface\SFP-Interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2033.268mil|Location2.X=2250.621mil|Location1.Y=2325mil|Location2.Y=2574.379mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Sam\Documents\EDA\SFP Interface\SFP-Interface\SFP-Interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2033.268mil|Location2.X=2250.621mil|Location1.Y=2325mil|Location2.Y=2574.379mil|Absolute=True">Un-Routed Net Constraint: Net NetR17_1 Between Pad U1-26(28.785mm,36.195mm) on Top Layer And Track (29.226mm,37.449mm)(29.226mm,38.019mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Sam\Documents\EDA\SFP Interface\SFP-Interface\SFP-Interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1950mil|Location2.X=2168.898mil|Location1.Y=1700mil|Location2.Y=2460.63mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Sam\Documents\EDA\SFP Interface\SFP-Interface\SFP-Interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1950mil|Location2.X=2168.898mil|Location1.Y=1700mil|Location2.Y=2460.63mil|Absolute=True">Un-Routed Net Constraint: Net NetR16_2 Between Track (26.035mm,19.685mm)(26.67mm,20.32mm) on Bottom Layer And Pad U1-31(27.15mm,34.56mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Sam\Documents\EDA\SFP Interface\SFP-Interface\SFP-Interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2048.362mil|Location2.X=2089.433mil|Location1.Y=2179.465mil|Location2.Y=2337.071mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Sam\Documents\EDA\SFP Interface\SFP-Interface\SFP-Interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2048.362mil|Location2.X=2089.433mil|Location1.Y=2179.465mil|Location2.Y=2337.071mil|Absolute=True">Un-Routed Net Constraint: Net +3.3V Between Pad U1-42(27.15mm,30.16mm) on Top Layer And Pad U1-33(27.15mm,33.76mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Sam\Documents\EDA\SFP Interface\SFP-Interface\SFP-Interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2048.362mil|Location2.X=2109.709mil|Location1.Y=2133.992mil|Location2.Y=2195.339mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Sam\Documents\EDA\SFP Interface\SFP-Interface\SFP-Interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2048.362mil|Location2.X=2109.709mil|Location1.Y=2133.992mil|Location2.Y=2195.339mil|Absolute=True">Un-Routed Net Constraint: Net +3.3V Between Pad U1-42(27.15mm,30.16mm) on Top Layer And Pad U1-43(27.985mm,29.325mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Sam\Documents\EDA\SFP Interface\SFP-Interface\SFP-Interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2093.835mil|Location2.X=2125.457mil|Location1.Y=2133.992mil|Location2.Y=2175.063mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Sam\Documents\EDA\SFP Interface\SFP-Interface\SFP-Interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2093.835mil|Location2.X=2125.457mil|Location1.Y=2133.992mil|Location2.Y=2175.063mil|Absolute=True">Un-Routed Net Constraint: Net +3.3V Between Pad U1-43(27.985mm,29.325mm) on Top Layer And Pad U1-44(28.385mm,29.325mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Sam\Documents\EDA\SFP Interface\SFP-Interface\SFP-Interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2109.583mil|Location2.X=2188.449mil|Location1.Y=2133.992mil|Location2.Y=2175.063mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Sam\Documents\EDA\SFP Interface\SFP-Interface\SFP-Interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2109.583mil|Location2.X=2188.449mil|Location1.Y=2133.992mil|Location2.Y=2175.063mil|Absolute=True">Un-Routed Net Constraint: Net +3.3V Between Pad U1-44(28.385mm,29.325mm) on Top Layer And Pad U1-48(29.985mm,29.325mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Sam\Documents\EDA\SFP Interface\SFP-Interface\SFP-Interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2125.331mil|Location2.X=2219.945mil|Location1.Y=2133.992mil|Location2.Y=2175.063mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Sam\Documents\EDA\SFP Interface\SFP-Interface\SFP-Interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2125.331mil|Location2.X=2219.945mil|Location1.Y=2133.992mil|Location2.Y=2175.063mil|Absolute=True">Un-Routed Net Constraint: Net NetC15_2 Between Pad U1-45(28.785mm,29.325mm) on Top Layer And Pad U1-50(30.785mm,29.325mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Sam\Documents\EDA\SFP Interface\SFP-Interface\SFP-Interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2064.764mil|Location2.X=2310mil|Location1.Y=2054.528mil|Location2.Y=2040mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Sam\Documents\EDA\SFP Interface\SFP-Interface\SFP-Interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2064.764mil|Location2.X=2310mil|Location1.Y=2054.528mil|Location2.Y=2040mil|Absolute=True">Un-Routed Net Constraint: Net NetR14_1 Between Pad U1-47(29.585mm,29.325mm) on Top Layer And Track (30.734mm,23.876mm)(36.195mm,18.415mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Sam\Documents\EDA\SFP Interface\SFP-Interface\SFP-Interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2172.575mil|Location2.X=2204.197mil|Location1.Y=2133.992mil|Location2.Y=2175.063mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Sam\Documents\EDA\SFP Interface\SFP-Interface\SFP-Interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2172.575mil|Location2.X=2204.197mil|Location1.Y=2133.992mil|Location2.Y=2175.063mil|Absolute=True">Un-Routed Net Constraint: Net +3.3V Between Pad U1-48(29.985mm,29.325mm) on Top Layer And Pad U1-49(30.385mm,29.325mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Sam\Documents\EDA\SFP Interface\SFP-Interface\SFP-Interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2096.26mil|Location2.X=2342mil|Location1.Y=2054.528mil|Location2.Y=2183mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Sam\Documents\EDA\SFP Interface\SFP-Interface\SFP-Interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2096.26mil|Location2.X=2342mil|Location1.Y=2054.528mil|Location2.Y=2183mil|Absolute=True">Un-Routed Net Constraint: Net +3.3V Between Pad U1-49(30.385mm,29.325mm) on Top Layer And Track (31.547mm,27.508mm)(31.75mm,27.305mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Sam\Documents\EDA\SFP Interface\SFP-Interface\SFP-Interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2127.756mil|Location2.X=2429.716mil|Location1.Y=2054.528mil|Location2.Y=2123.278mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Sam\Documents\EDA\SFP Interface\SFP-Interface\SFP-Interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2127.756mil|Location2.X=2429.716mil|Location1.Y=2054.528mil|Location2.Y=2123.278mil|Absolute=True">Un-Routed Net Constraint: Net NetU1_51 Between Pad U1-51(31.185mm,29.325mm) on Top Layer And Track (33.775mm,25.975mm)(33.775mm,25.991mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Sam\Documents\EDA\SFP Interface\SFP-Interface\SFP-Interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2143.504mil|Location2.X=2445.716mil|Location1.Y=2054.528mil|Location2.Y=2129.905mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Sam\Documents\EDA\SFP Interface\SFP-Interface\SFP-Interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2143.504mil|Location2.X=2445.716mil|Location1.Y=2054.528mil|Location2.Y=2129.905mil|Absolute=True">Un-Routed Net Constraint: Net NetU1_52 Between Pad U1-52(31.585mm,29.325mm) on Top Layer And Track (34.181mm,26.144mm)(34.181mm,26.16mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Sam\Documents\EDA\SFP Interface\SFP-Interface\SFP-Interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2159.252mil|Location2.X=2575mil|Location1.Y=2054.528mil|Location2.Y=2025mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Sam\Documents\EDA\SFP Interface\SFP-Interface\SFP-Interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2159.252mil|Location2.X=2575mil|Location1.Y=2054.528mil|Location2.Y=2025mil|Absolute=True">Un-Routed Net Constraint: Net NetU1_53 Between Pad U1-53(31.985mm,29.325mm) on Top Layer And Track (37.465mm,23.495mm)(41.137mm,23.495mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Sam\Documents\EDA\SFP Interface\SFP-Interface\SFP-Interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2175mil|Location2.X=2460.902mil|Location1.Y=2054.528mil|Location2.Y=2175mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Sam\Documents\EDA\SFP Interface\SFP-Interface\SFP-Interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2175mil|Location2.X=2460.902mil|Location1.Y=2054.528mil|Location2.Y=2175mil|Absolute=True">Un-Routed Net Constraint: Net NetU1_54 Between Pad U1-54(32.385mm,29.325mm) on Top Layer And Track (34.567mm,27.305mm)(40.312mm,27.305mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Sam\Documents\EDA\SFP Interface\SFP-Interface\SFP-Interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2190.748mil|Location2.X=2467.53mil|Location1.Y=2054.528mil|Location2.Y=2191mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Sam\Documents\EDA\SFP Interface\SFP-Interface\SFP-Interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2190.748mil|Location2.X=2467.53mil|Location1.Y=2054.528mil|Location2.Y=2191mil|Absolute=True">Un-Routed Net Constraint: Net NetU1_55 Between Pad U1-55(32.785mm,29.325mm) on Top Layer And Track (34.735mm,27.711mm)(39.906mm,27.711mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Sam\Documents\EDA\SFP Interface\SFP-Interface\SFP-Interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1950mil|Location2.X=2406.496mil|Location1.Y=1675mil|Location2.Y=2254.528mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Sam\Documents\EDA\SFP Interface\SFP-Interface\SFP-Interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1950mil|Location2.X=2406.496mil|Location1.Y=1675mil|Location2.Y=2254.528mil|Absolute=True">Un-Routed Net Constraint: Net NetR11_1 Between Track (26.67mm,16.51mm)(26.67mm,19.685mm) on Bottom Layer And Pad U1-56(33.185mm,29.325mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Sam\Documents\EDA\SFP Interface\SFP-Interface\SFP-Interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2206.496mil|Location2.X=2627.559mil|Location1.Y=2054.528mil|Location2.Y=2226.968mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Sam\Documents\EDA\SFP Interface\SFP-Interface\SFP-Interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2206.496mil|Location2.X=2627.559mil|Location1.Y=2054.528mil|Location2.Y=2226.968mil|Absolute=True">Un-Routed Net Constraint: Net NetR11_1 Between Pad U1-56(33.185mm,29.325mm) on Top Layer And Track (38.8mm,28.575mm)(38.8mm,28.625mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Sam\Documents\EDA\SFP Interface\SFP-Interface\SFP-Interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1790.866mil|Location2.X=2211.89mil|Location1.Y=958.15mil|Location2.Y=1163.071mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Sam\Documents\EDA\SFP Interface\SFP-Interface\SFP-Interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1790.866mil|Location2.X=2211.89mil|Location1.Y=958.15mil|Location2.Y=1163.071mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Track (22.503mm,1.477mm)(22.628mm,1.477mm) on Top Layer And Track (28.242mm,1.602mm)(28.865mm,2.225mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Sam\Documents\EDA\SFP Interface\SFP-Interface\SFP-Interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2049.016mil|Location2.X=2250mil|Location1.Y=1878.357mil|Location2.Y=2125mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Sam\Documents\EDA\SFP Interface\SFP-Interface\SFP-Interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2049.016mil|Location2.X=2250mil|Location1.Y=1878.357mil|Location2.Y=2125mil|Absolute=True">Un-Routed Net Constraint: Net NetR13_1 Between Track (29.185mm,24.85mm)(34.925mm,19.11mm) on Top Layer And Track (29.185mm,26.06mm)(29.21mm,26.035mm) on Top Layer </acronym></a><br></td>
+</tr>
+</table></a><hr color="#EEEEEE"><a href="#top" style="font-size: 0.9em">Back to top</a><br><br><a name="IDZGAVWE5JXF0DIV1ZAVWPOSCFRCJMHZ3HAC52CYDEGQ32PY0OIVO"><table>
+<tr>
+<th style="text-align : left" colspan="1" class="rule">Minimum Solder Mask Sliver (Gap=0.1mm) (All),(All)</th>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Sam\Documents\EDA\SFP Interface\SFP-Interface\SFP-Interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1322.21mil|Location2.X=1327.397mil|Location1.Y=2184.155mil|Location2.Y=2189.341mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Sam\Documents\EDA\SFP Interface\SFP-Interface\SFP-Interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1322.21mil|Location2.X=1327.397mil|Location1.Y=2184.155mil|Location2.Y=2189.341mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.097mm &lt; 0.1mm) Between Pad J1-1(7.85mm,31.245mm) on Top Layer And Pad J1-2(8.65mm,31.245mm) on Top Layer [Top Solder] Mask Sliver [0.097mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Sam\Documents\EDA\SFP Interface\SFP-Interface\SFP-Interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1574.178mil|Location2.X=1579.365mil|Location1.Y=2184.155mil|Location2.Y=2189.341mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Sam\Documents\EDA\SFP Interface\SFP-Interface\SFP-Interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1574.178mil|Location2.X=1579.365mil|Location1.Y=2184.155mil|Location2.Y=2189.341mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.097mm &lt; 0.1mm) Between Pad J1-10(15.05mm,31.245mm) on Top Layer And Pad J1-9(14.25mm,31.245mm) on Top Layer [Top Solder] Mask Sliver [0.097mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Sam\Documents\EDA\SFP Interface\SFP-Interface\SFP-Interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1558.43mil|Location2.X=1563.617mil|Location1.Y=2593.729mil|Location2.Y=2598.916mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Sam\Documents\EDA\SFP Interface\SFP-Interface\SFP-Interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1558.43mil|Location2.X=1563.617mil|Location1.Y=2593.729mil|Location2.Y=2598.916mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.097mm &lt; 0.1mm) Between Pad J1-11(14.65mm,39.445mm) on Top Layer And Pad J1-12(13.85mm,39.445mm) on Top Layer [Top Solder] Mask Sliver [0.097mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Sam\Documents\EDA\SFP Interface\SFP-Interface\SFP-Interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1526.934mil|Location2.X=1532.121mil|Location1.Y=2593.729mil|Location2.Y=2598.916mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Sam\Documents\EDA\SFP Interface\SFP-Interface\SFP-Interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1526.934mil|Location2.X=1532.121mil|Location1.Y=2593.729mil|Location2.Y=2598.916mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.097mm &lt; 0.1mm) Between Pad J1-12(13.85mm,39.445mm) on Top Layer And Pad J1-13(13.05mm,39.445mm) on Top Layer [Top Solder] Mask Sliver [0.097mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Sam\Documents\EDA\SFP Interface\SFP-Interface\SFP-Interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1495.438mil|Location2.X=1500.625mil|Location1.Y=2593.729mil|Location2.Y=2598.916mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Sam\Documents\EDA\SFP Interface\SFP-Interface\SFP-Interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1495.438mil|Location2.X=1500.625mil|Location1.Y=2593.729mil|Location2.Y=2598.916mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.097mm &lt; 0.1mm) Between Pad J1-13(13.05mm,39.445mm) on Top Layer And Pad J1-14(12.25mm,39.445mm) on Top Layer [Top Solder] Mask Sliver [0.097mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Sam\Documents\EDA\SFP Interface\SFP-Interface\SFP-Interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1463.942mil|Location2.X=1469.129mil|Location1.Y=2593.729mil|Location2.Y=2598.916mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Sam\Documents\EDA\SFP Interface\SFP-Interface\SFP-Interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1463.942mil|Location2.X=1469.129mil|Location1.Y=2593.729mil|Location2.Y=2598.916mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.097mm &lt; 0.1mm) Between Pad J1-14(12.25mm,39.445mm) on Top Layer And Pad J1-15(11.45mm,39.445mm) on Top Layer [Top Solder] Mask Sliver [0.097mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Sam\Documents\EDA\SFP Interface\SFP-Interface\SFP-Interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1432.446mil|Location2.X=1437.633mil|Location1.Y=2593.729mil|Location2.Y=2598.916mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Sam\Documents\EDA\SFP Interface\SFP-Interface\SFP-Interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1432.446mil|Location2.X=1437.633mil|Location1.Y=2593.729mil|Location2.Y=2598.916mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.097mm &lt; 0.1mm) Between Pad J1-15(11.45mm,39.445mm) on Top Layer And Pad J1-16(10.65mm,39.445mm) on Top Layer [Top Solder] Mask Sliver [0.097mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Sam\Documents\EDA\SFP Interface\SFP-Interface\SFP-Interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1400.95mil|Location2.X=1406.137mil|Location1.Y=2593.729mil|Location2.Y=2598.916mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Sam\Documents\EDA\SFP Interface\SFP-Interface\SFP-Interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1400.95mil|Location2.X=1406.137mil|Location1.Y=2593.729mil|Location2.Y=2598.916mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.097mm &lt; 0.1mm) Between Pad J1-16(10.65mm,39.445mm) on Top Layer And Pad J1-17(9.85mm,39.445mm) on Top Layer [Top Solder] Mask Sliver [0.097mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Sam\Documents\EDA\SFP Interface\SFP-Interface\SFP-Interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1369.454mil|Location2.X=1374.641mil|Location1.Y=2593.729mil|Location2.Y=2598.916mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Sam\Documents\EDA\SFP Interface\SFP-Interface\SFP-Interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1369.454mil|Location2.X=1374.641mil|Location1.Y=2593.729mil|Location2.Y=2598.916mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.097mm &lt; 0.1mm) Between Pad J1-17(9.85mm,39.445mm) on Top Layer And Pad J1-18(9.05mm,39.445mm) on Top Layer [Top Solder] Mask Sliver [0.097mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Sam\Documents\EDA\SFP Interface\SFP-Interface\SFP-Interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1337.958mil|Location2.X=1343.145mil|Location1.Y=2593.729mil|Location2.Y=2598.916mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Sam\Documents\EDA\SFP Interface\SFP-Interface\SFP-Interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1337.958mil|Location2.X=1343.145mil|Location1.Y=2593.729mil|Location2.Y=2598.916mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.097mm &lt; 0.1mm) Between Pad J1-18(9.05mm,39.445mm) on Top Layer And Pad J1-19(8.25mm,39.445mm) on Top Layer [Top Solder] Mask Sliver [0.097mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Sam\Documents\EDA\SFP Interface\SFP-Interface\SFP-Interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1306.462mil|Location2.X=1311.649mil|Location1.Y=2593.729mil|Location2.Y=2598.916mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Sam\Documents\EDA\SFP Interface\SFP-Interface\SFP-Interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1306.462mil|Location2.X=1311.649mil|Location1.Y=2593.729mil|Location2.Y=2598.916mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.097mm &lt; 0.1mm) Between Pad J1-19(8.25mm,39.445mm) on Top Layer And Pad J1-20(7.45mm,39.445mm) on Top Layer [Top Solder] Mask Sliver [0.097mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Sam\Documents\EDA\SFP Interface\SFP-Interface\SFP-Interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1353.706mil|Location2.X=1358.893mil|Location1.Y=2184.155mil|Location2.Y=2189.341mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Sam\Documents\EDA\SFP Interface\SFP-Interface\SFP-Interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1353.706mil|Location2.X=1358.893mil|Location1.Y=2184.155mil|Location2.Y=2189.341mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.097mm &lt; 0.1mm) Between Pad J1-2(8.65mm,31.245mm) on Top Layer And Pad J1-3(9.45mm,31.245mm) on Top Layer [Top Solder] Mask Sliver [0.097mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Sam\Documents\EDA\SFP Interface\SFP-Interface\SFP-Interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1385.202mil|Location2.X=1390.389mil|Location1.Y=2184.155mil|Location2.Y=2189.341mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Sam\Documents\EDA\SFP Interface\SFP-Interface\SFP-Interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1385.202mil|Location2.X=1390.389mil|Location1.Y=2184.155mil|Location2.Y=2189.341mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.097mm &lt; 0.1mm) Between Pad J1-3(9.45mm,31.245mm) on Top Layer And Pad J1-4(10.25mm,31.245mm) on Top Layer [Top Solder] Mask Sliver [0.097mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Sam\Documents\EDA\SFP Interface\SFP-Interface\SFP-Interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1416.698mil|Location2.X=1421.885mil|Location1.Y=2184.155mil|Location2.Y=2189.341mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Sam\Documents\EDA\SFP Interface\SFP-Interface\SFP-Interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1416.698mil|Location2.X=1421.885mil|Location1.Y=2184.155mil|Location2.Y=2189.341mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.097mm &lt; 0.1mm) Between Pad J1-4(10.25mm,31.245mm) on Top Layer And Pad J1-5(11.05mm,31.245mm) on Top Layer [Top Solder] Mask Sliver [0.097mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Sam\Documents\EDA\SFP Interface\SFP-Interface\SFP-Interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1448.194mil|Location2.X=1453.381mil|Location1.Y=2184.155mil|Location2.Y=2189.341mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Sam\Documents\EDA\SFP Interface\SFP-Interface\SFP-Interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1448.194mil|Location2.X=1453.381mil|Location1.Y=2184.155mil|Location2.Y=2189.341mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.097mm &lt; 0.1mm) Between Pad J1-5(11.05mm,31.245mm) on Top Layer And Pad J1-6(11.85mm,31.245mm) on Top Layer [Top Solder] Mask Sliver [0.097mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Sam\Documents\EDA\SFP Interface\SFP-Interface\SFP-Interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1479.69mil|Location2.X=1484.877mil|Location1.Y=2184.155mil|Location2.Y=2189.341mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Sam\Documents\EDA\SFP Interface\SFP-Interface\SFP-Interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1479.69mil|Location2.X=1484.877mil|Location1.Y=2184.155mil|Location2.Y=2189.341mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.097mm &lt; 0.1mm) Between Pad J1-6(11.85mm,31.245mm) on Top Layer And Pad J1-7(12.65mm,31.245mm) on Top Layer [Top Solder] Mask Sliver [0.097mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Sam\Documents\EDA\SFP Interface\SFP-Interface\SFP-Interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1511.186mil|Location2.X=1516.373mil|Location1.Y=2184.155mil|Location2.Y=2189.341mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Sam\Documents\EDA\SFP Interface\SFP-Interface\SFP-Interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1511.186mil|Location2.X=1516.373mil|Location1.Y=2184.155mil|Location2.Y=2189.341mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.097mm &lt; 0.1mm) Between Pad J1-7(12.65mm,31.245mm) on Top Layer And Pad J1-8(13.45mm,31.245mm) on Top Layer [Top Solder] Mask Sliver [0.097mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Sam\Documents\EDA\SFP Interface\SFP-Interface\SFP-Interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1542.682mil|Location2.X=1547.869mil|Location1.Y=2184.155mil|Location2.Y=2189.341mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Sam\Documents\EDA\SFP Interface\SFP-Interface\SFP-Interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1542.682mil|Location2.X=1547.869mil|Location1.Y=2184.155mil|Location2.Y=2189.341mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.097mm &lt; 0.1mm) Between Pad J1-8(13.45mm,31.245mm) on Top Layer And Pad J1-9(14.25mm,31.245mm) on Top Layer [Top Solder] Mask Sliver [0.097mm]</acronym></a><br></td>
+</tr>
+</table></a><hr color="#EEEEEE"><a href="#top" style="font-size: 0.9em">Back to top</a><br><br><a name="ID0VJGNRSKUDTVOUXYGOM5E13S3KULAFQVJTNWQGE3MYMSN4WPTUZK"><table>
+<tr>
+<th style="text-align : left" colspan="1" class="rule">Silk To Solder Mask (Clearance=0.1mm) (IsPad),(All)</th>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Sam\Documents\EDA\SFP Interface\SFP-Interface\SFP-Interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2585.688mil|Location2.X=2589.312mil|Location1.Y=2468.188mil|Location2.Y=2471.812mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Sam\Documents\EDA\SFP Interface\SFP-Interface\SFP-Interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2585.688mil|Location2.X=2589.312mil|Location1.Y=2468.188mil|Location2.Y=2471.812mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (Collision &lt; 0.1mm) Between Pad *-9(41.021mm,37.465mm) on Top Layer And Region (0 hole(s)) Top Overlay [Top Overlay] to [Top Solder] clearance [0mm]</acronym></a><br></td>
+</tr>
+</table></a><hr color="#EEEEEE"><a href="#top" style="font-size: 0.9em">Back to top</a><br><br><a name="IDNPMQSBVQ4UEXC12SKIYQEAHVTL3PL1PON34CNBNDO5UKI3ISBTZD"><table>
+<tr>
+<th style="text-align : left" colspan="1" class="rule">Silk to Silk (Clearance=0.1mm) (All),(All)</th>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Sam\Documents\EDA\SFP Interface\SFP-Interface\SFP-Interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2747.407mil|Location2.X=2752.593mil|Location1.Y=2706.495mil|Location2.Y=2711.682mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Sam\Documents\EDA\SFP Interface\SFP-Interface\SFP-Interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2747.407mil|Location2.X=2752.593mil|Location1.Y=2706.495mil|Location2.Y=2711.682mil|Absolute=True">Silk To Silk Clearance Constraint: (0.055mm &lt; 0.1mm) Between Text "2" (44.45mm,44.323mm) on Top Overlay And Track (40.386mm,43.307mm)(45.72mm,43.307mm) on Top Overlay Silk Text to Silk Clearance [0.055mm]</acronym></a><br></td>
+</tr>
+</table></a><hr color="#EEEEEE"><a href="#top" style="font-size: 0.9em">Back to top</a><br><br><a name="IDNQWDN5VAZJ23IY0TYQFB3KZUUNMS22KGIW1LJQD530WKOKQD1WYF"><table>
+<tr>
+<th style="text-align : left" colspan="1" class="rule">Net Antennae (Tolerance=0mm) (All)</th>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Sam\Documents\EDA\SFP Interface\SFP-Interface\SFP-Interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2042.5mil|Location2.X=2063.912mil|Location1.Y=1792.5mil|Location2.Y=1823.109mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Sam\Documents\EDA\SFP Interface\SFP-Interface\SFP-Interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2042.5mil|Location2.X=2063.912mil|Location1.Y=1792.5mil|Location2.Y=1823.109mil|Absolute=True">Net Antennae: Track (26.035mm,19.685mm)(26.67mm,20.32mm) on Bottom Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Sam\Documents\EDA\SFP Interface\SFP-Interface\SFP-Interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2042.5mil|Location2.X=2063.912mil|Location1.Y=1767.5mil|Location2.Y=1798.109mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Sam\Documents\EDA\SFP Interface\SFP-Interface\SFP-Interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2042.5mil|Location2.X=2063.912mil|Location1.Y=1767.5mil|Location2.Y=1798.109mil|Absolute=True">Net Antennae: Track (26.67mm,16.51mm)(26.67mm,19.685mm) on Bottom Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Sam\Documents\EDA\SFP Interface\SFP-Interface\SFP-Interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2141.516mil|Location2.X=2162.927mil|Location1.Y=1970.857mil|Location2.Y=2001.466mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Sam\Documents\EDA\SFP Interface\SFP-Interface\SFP-Interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2141.516mil|Location2.X=2162.927mil|Location1.Y=1970.857mil|Location2.Y=2001.466mil|Absolute=True">Net Antennae: Track (29.185mm,24.85mm)(34.925mm,19.11mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Sam\Documents\EDA\SFP Interface\SFP-Interface\SFP-Interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2141.579mil|Location2.X=2162.853mil|Location1.Y=2018.547mil|Location2.Y=2048.93mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Sam\Documents\EDA\SFP Interface\SFP-Interface\SFP-Interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2141.579mil|Location2.X=2162.853mil|Location1.Y=2018.547mil|Location2.Y=2048.93mil|Absolute=True">Net Antennae: Track (29.185mm,26.06mm)(29.185mm,29.325mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Sam\Documents\EDA\SFP Interface\SFP-Interface\SFP-Interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2143.121mil|Location2.X=2164.532mil|Location1.Y=2466.879mil|Location2.Y=2497.488mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Sam\Documents\EDA\SFP Interface\SFP-Interface\SFP-Interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2143.121mil|Location2.X=2164.532mil|Location1.Y=2466.879mil|Location2.Y=2497.488mil|Absolute=True">Net Antennae: Track (29.226mm,37.449mm)(29.226mm,38.019mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Sam\Documents\EDA\SFP Interface\SFP-Interface\SFP-Interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2193.121mil|Location2.X=2214.533mil|Location1.Y=2466.879mil|Location2.Y=2497.488mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Sam\Documents\EDA\SFP Interface\SFP-Interface\SFP-Interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2193.121mil|Location2.X=2214.533mil|Location1.Y=2466.879mil|Location2.Y=2497.488mil|Absolute=True">Net Antennae: Track (30.496mm,37.449mm)(30.496mm,38.019mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Sam\Documents\EDA\SFP Interface\SFP-Interface\SFP-Interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2202.5mil|Location2.X=2223.912mil|Location1.Y=1932.5mil|Location2.Y=1963.109mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Sam\Documents\EDA\SFP Interface\SFP-Interface\SFP-Interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2202.5mil|Location2.X=2223.912mil|Location1.Y=1932.5mil|Location2.Y=1963.109mil|Absolute=True">Net Antennae: Track (30.734mm,23.876mm)(36.195mm,18.415mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Sam\Documents\EDA\SFP Interface\SFP-Interface\SFP-Interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2234.5mil|Location2.X=2255.912mil|Location1.Y=2075.5mil|Location2.Y=2106.109mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Sam\Documents\EDA\SFP Interface\SFP-Interface\SFP-Interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2234.5mil|Location2.X=2255.912mil|Location1.Y=2075.5mil|Location2.Y=2106.109mil|Absolute=True">Net Antennae: Track (31.547mm,27.508mm)(31.75mm,27.305mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Sam\Documents\EDA\SFP Interface\SFP-Interface\SFP-Interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2322.216mil|Location2.X=2343.628mil|Location1.Y=2015.156mil|Location2.Y=2045.765mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Sam\Documents\EDA\SFP Interface\SFP-Interface\SFP-Interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2322.216mil|Location2.X=2343.628mil|Location1.Y=2015.156mil|Location2.Y=2045.765mil|Absolute=True">Net Antennae: Track (33.775mm,25.975mm)(37.068mm,22.682mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Sam\Documents\EDA\SFP Interface\SFP-Interface\SFP-Interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2338.216mil|Location2.X=2359.628mil|Location1.Y=2021.784mil|Location2.Y=2052.393mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Sam\Documents\EDA\SFP Interface\SFP-Interface\SFP-Interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2338.216mil|Location2.X=2359.628mil|Location1.Y=2021.784mil|Location2.Y=2052.393mil|Absolute=True">Net Antennae: Track (34.181mm,26.144mm)(37.236mm,23.089mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Sam\Documents\EDA\SFP Interface\SFP-Interface\SFP-Interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2353.402mil|Location2.X=2374.814mil|Location1.Y=2067.5mil|Location2.Y=2098.109mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Sam\Documents\EDA\SFP Interface\SFP-Interface\SFP-Interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2353.402mil|Location2.X=2374.814mil|Location1.Y=2067.5mil|Location2.Y=2098.109mil|Absolute=True">Net Antennae: Track (34.567mm,27.305mm)(40.312mm,27.305mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Sam\Documents\EDA\SFP Interface\SFP-Interface\SFP-Interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2360.03mil|Location2.X=2381.441mil|Location1.Y=2083.5mil|Location2.Y=2114.109mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Sam\Documents\EDA\SFP Interface\SFP-Interface\SFP-Interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2360.03mil|Location2.X=2381.441mil|Location1.Y=2083.5mil|Location2.Y=2114.109mil|Absolute=True">Net Antennae: Track (34.735mm,27.711mm)(39.906mm,27.711mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Sam\Documents\EDA\SFP Interface\SFP-Interface\SFP-Interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2406.97mil|Location2.X=2428.382mil|Location1.Y=2317.5mil|Location2.Y=2348.109mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Sam\Documents\EDA\SFP Interface\SFP-Interface\SFP-Interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2406.97mil|Location2.X=2428.382mil|Location1.Y=2317.5mil|Location2.Y=2348.109mil|Absolute=True">Net Antennae: Track (35.928mm,33.655mm)(37.4mm,33.655mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Sam\Documents\EDA\SFP Interface\SFP-Interface\SFP-Interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2467.5mil|Location2.X=2488.912mil|Location1.Y=1917.5mil|Location2.Y=1948.109mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Sam\Documents\EDA\SFP Interface\SFP-Interface\SFP-Interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2467.5mil|Location2.X=2488.912mil|Location1.Y=1917.5mil|Location2.Y=1948.109mil|Absolute=True">Net Antennae: Track (37.465mm,23.495mm)(41.137mm,23.495mm) on Top Layer </acronym></a><br></td>
+</tr>
+</table></a><hr color="#EEEEEE"><a href="#top" style="font-size: 0.9em">Back to top</a><br><br><a name="IDS3LCGTDRRF04CLGCHFMMVDANLJAVDJOLWVND0JF2Q1FGDZHQXC0M"><table>
+<tr>
+<th style="text-align : left" colspan="1" class="rule">Board Clearance Constraint (Gap=0mm) (All)</th>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Sam\Documents\EDA\SFP Interface\SFP-Interface\SFP-Interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1725.222mil|Location2.X=1731.471mil|Location1.Y=848.057mil|Location2.Y=854.306mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Sam\Documents\EDA\SFP Interface\SFP-Interface\SFP-Interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1725.222mil|Location2.X=1731.471mil|Location1.Y=848.057mil|Location2.Y=854.306mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 0.2mm) Between Board Edge And Track (18.5mm,-7.155mm)(18.5mm,-0.405mm) on Top Overlay </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Sam\Documents\EDA\SFP Interface\SFP-Interface\SFP-Interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2491.954mil|Location2.X=2498.203mil|Location1.Y=994.449mil|Location2.Y=1000.698mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Sam\Documents\EDA\SFP Interface\SFP-Interface\SFP-Interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2491.954mil|Location2.X=2498.203mil|Location1.Y=994.449mil|Location2.Y=1000.698mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 0.2mm) Between Board Edge And Track (37.975mm,-0.015mm)(37.975mm,1.61mm) on Top Overlay </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Sam\Documents\EDA\SFP Interface\SFP-Interface\SFP-Interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2671.875mil|Location2.X=2678.125mil|Location1.Y=994.449mil|Location2.Y=1000.698mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Sam\Documents\EDA\SFP Interface\SFP-Interface\SFP-Interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2671.875mil|Location2.X=2678.125mil|Location1.Y=994.449mil|Location2.Y=1000.698mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 0.2mm) Between Board Edge And Track (37.975mm,-0.015mm)(47.115mm,-0.015mm) on Top Overlay </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Sam\Documents\EDA\SFP Interface\SFP-Interface\SFP-Interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2851.797mil|Location2.X=2858.046mil|Location1.Y=994.449mil|Location2.Y=1000.698mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Sam\Documents\EDA\SFP Interface\SFP-Interface\SFP-Interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2851.797mil|Location2.X=2858.046mil|Location1.Y=994.449mil|Location2.Y=1000.698mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 0.2mm) Between Board Edge And Track (47.115mm,-0.015mm)(47.115mm,1.61mm) on Top Overlay </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Sam\Documents\EDA\SFP Interface\SFP-Interface\SFP-Interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1439.789mil|Location2.X=1446.038mil|Location1.Y=715.183mil|Location2.Y=721.432mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Sam\Documents\EDA\SFP Interface\SFP-Interface\SFP-Interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1439.789mil|Location2.X=1446.038mil|Location1.Y=715.183mil|Location2.Y=721.432mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 0.2mm) Between Board Edge And Track (4mm,-7.155mm)(18.5mm,-7.155mm) on Top Overlay </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Sam\Documents\EDA\SFP Interface\SFP-Interface\SFP-Interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1154.356mil|Location2.X=1160.605mil|Location1.Y=848.057mil|Location2.Y=854.306mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Sam\Documents\EDA\SFP Interface\SFP-Interface\SFP-Interface.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1154.356mil|Location2.X=1160.605mil|Location1.Y=848.057mil|Location2.Y=854.306mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 0.2mm) Between Board Edge And Track (4mm,-7.155mm)(4mm,-0.405mm) on Top Overlay </acronym></a><br></td>
+</tr>
+</table></a><hr color="#EEEEEE"><a href="#top" style="font-size: 0.9em">Back to top</a><br><br></body>
+</html>
