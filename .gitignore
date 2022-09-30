@@ -12,6 +12,7 @@ __Previews
 *.htm
 *.$$$
 *.Cam
+*.DXF
 
 #useless dirs
 Project\ Outputs
